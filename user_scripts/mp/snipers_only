@@ -1,0 +1,38 @@
+init()
+{
+    level.OriginalCallbackPlayerDamage = level.callbackPlayerDamage;
+    level.callbackPlayerDamage = ::CodeCallback_PlayerDamage;
+}
+
+isSniper( weapon )
+{
+    return ( 
+            isSubstr( weapon, "h2_cheytac") 
+        ||  isSubstr( weapon, "h2_barrett" ) 
+        ||  isSubstr( weapon, "h2_wa2000" ) 
+        ||  isSubstr( weapon, "h2_m21" ) 
+        ||  isSubstr( weapon, "h2_m40a3" ) 
+        //||  isSubstr( weapon, "h1_febsnp" )
+        //||  isSubstr( weapon, "h1_junsnp" )
+    );
+}
+
+CodeCallback_PlayerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, timeOffset)
+{
+      self endon("disconnect");
+    if(sMeansOfDeath == "MOD_TRIGGER_HURT" || sMeansOfDeath == "MOD_HIT_BY_OBJECT" || sMeansOfDeath == "MOD_FALLING" || sMeansOfDeath == "MOD_MELEE")
+    {
+        return;
+    }
+    else
+    {
+        if( isSniper( sWeapon ) )
+        {
+            iDamage = 999;  
+        }
+        else 
+            return;
+        
+        [[level.OriginalCallbackPlayerDamage]](eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, timeOffset);
+    }       
+}
