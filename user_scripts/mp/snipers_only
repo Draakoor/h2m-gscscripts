@@ -46,6 +46,7 @@ restrictWeapons()
 	self takeWeapon("h1_smokegrenade_mp");
     self takeweapon("h2m_weapon_c4");
     self takeweapon("h2m_weapon_claymore");
+    //blast shield is not removed maybe buggy
     self takeweapon("specialty_blastshield");
 
 	weapon = self getCurrentWeapon();
@@ -71,11 +72,13 @@ restrictWeapons()
 	{
 		self takeWeapon(weapon);
 		self giveWeapon("h2_cheytac_mp");
+        //throwing knife doesnt work
         self GiveWeapon("iw9_throwknife_mp");
 
 		// wait .1 second as switchToWeapon doesn't seem to work when called directly after giveWeapon
 		wait(.1);
 		self switchToWeapon("h2_cheytac_mp");
+        //should give some sniper perks
         self maps\mp\_utility::giveperk("specialty_fastreload", 1);
 		self maps\mp\_utility::giveperk("specialty_quickdraw", 1);
         self maps\mp\_utility::giveperk("specialty_longersprint", 1);
