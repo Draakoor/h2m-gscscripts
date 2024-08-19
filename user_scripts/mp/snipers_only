@@ -1,7 +1,136 @@
+#include common_scripts\utility;
+#include maps\mp\_utility;
+#include maps\mp\gametypes\_hud_util;
+#include maps\mp\gametypes\_gamelogic;
+
 init()
-{
-    level.OriginalCallbackPlayerDamage = level.callbackPlayerDamage;
+{   
+	if (getDvarInt("sniperport") == 1) {
+	level thread onPlayerConnect();
+	level.OriginalCallbackPlayerDamage = level.callbackPlayerDamage;
     level.callbackPlayerDamage = ::CodeCallback_PlayerDamage;
+	}
+}
+
+onPlayerConnect()
+{
+	while (true)
+	{
+		level waittill("connected", player);		
+
+		player thread onPlayerSpawned();
+	}
+}
+
+onPlayerSpawned()
+{
+	self endon("disconnect");
+	
+	while (true)
+	{
+		self waittill("spawned_player");
+
+		self thread applyGameMode();
+		self thread ammoLoop();
+	}
+}
+
+restrictWeapons()
+{
+	self takeWeapon("h2_semtex_mp");
+    self takeweapon("h1_fraggrenade_mp");
+    self takeweapon("weapon_blastshield");
+    self takeweapon("specialty_blastshield");
+    self takeweapon("weapon_blastshield_mp");
+    self takeweapon("h2_blastshield");
+    self takeweapon("h1_claymore_mp");
+    self takeweapon("h1_c4_mp");
+    self takeWeapon("h1_flashgrenade_mp");
+	self takeWeapon("h1_concussiongrenade_mp");
+	self takeWeapon("h1_smokegrenade_mp");
+    self takeweapon("h2m_weapon_c4");
+    self takeweapon("h2m_weapon_claymore");
+
+	weapon = self getCurrentWeapon();
+
+	// Check for weapon attachments and allowed weapons
+	if (	
+			weapon != self.secondaryWeapon &&
+		   	(
+				isSubStr(weapon, "thermal") ||
+		   		isSubStr(weapon, "heartbeat") ||
+				isSubStr(weapon, "acog") ||
+				!(
+					isSubStr(weapon, "cheytac") ||
+					isSubStr(weapon, "barrett") ||
+					isSubStr(weapon, "wa2000") ||
+					isSubStr(weapon, "m21") ||
+					isSubStr(weapon, "m40a3") ||
+					isSubStr(weapon, "throwingknife") ||
+					isSubStr(weapon, "tacticalinsertion")
+				)
+			)
+		)
+	{
+		self takeWeapon(weapon);
+		self giveWeapon("h2_cheytac_mp");
+        self giveweapon("throwingknife_mp");
+
+		// wait .1 second as switchToWeapon doesn't seem to work when called directly after giveWeapon
+		wait(.1);
+		self switchToWeapon("h2_cheytac_mp");
+        self maps\mp\_utility::giveperk("specialty_fastreload", 1);
+		self maps\mp\_utility::giveperk("specialty_quickdraw", 1);
+
+	}
+}
+
+takeAmmo(slot)
+{
+	if (slot == "primary")
+	{
+		self setWeaponAmmoClip(self.primaryWeapon, 0);
+		self setWeaponAmmoStock(self.primaryWeapon, 0);
+	}
+	else if (slot == "secondary")
+	{
+		// Check for akimbo and take ammo of both akimbo weapons if encountered
+		if (isSubstr(self.secondaryWeapon, "akimbo"))
+		{
+			self setWeaponAmmoClip(self.secondaryWeapon, 0, "left");
+			self setWeaponAmmoClip(self.secondaryWeapon, 0, "right");
+		} else {
+			self setWeaponAmmoClip(self.secondaryWeapon, 0);
+		}
+
+		self setWeaponAmmoStock(self.secondaryWeapon, 0);
+	}
+
+}
+
+applyGameMode()
+{	
+	for (count=0;count<15;count++)
+	{
+		self restrictWeapons();
+		self takeAmmo("secondary");
+
+		wait(3);
+	}
+}
+
+ammoLoop()
+{
+	while (true)
+	{
+		self waittill("weapon_fired");
+		ammoWeapon = self getCurrentWeapon();
+
+		if (ammoWeapon != self.secondaryWeapon)
+		{
+			self giveMaxAmmo(ammoWeapon);
+		}
+	}
 }
 
 isSniper( weapon )
