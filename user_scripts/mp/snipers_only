@@ -39,10 +39,6 @@ restrictWeapons()
 {
 	self takeWeapon("h2_semtex_mp");
     self takeweapon("h1_fraggrenade_mp");
-    self takeweapon("weapon_blastshield");
-    self takeweapon("specialty_blastshield");
-    self takeweapon("weapon_blastshield_mp");
-    self takeweapon("h2_blastshield");
     self takeweapon("h1_claymore_mp");
     self takeweapon("h1_c4_mp");
     self takeWeapon("h1_flashgrenade_mp");
@@ -74,14 +70,22 @@ restrictWeapons()
 	{
 		self takeWeapon(weapon);
 		self giveWeapon("h2_cheytac_mp");
-        self giveweapon("throwingknife_mp");
 
 		// wait .1 second as switchToWeapon doesn't seem to work when called directly after giveWeapon
 		wait(.1);
 		self switchToWeapon("h2_cheytac_mp");
         self maps\mp\_utility::giveperk("specialty_fastreload", 1);
 		self maps\mp\_utility::giveperk("specialty_quickdraw", 1);
-
+        self maps\mp\_utility::giveperk("specialty_longersprint", 1);
+        self maps\mp\_utility::giveperk("specialty_fastmantle", 1);
+        self maps\mp\_utility::giveperk("specialty_lightweight", 1);
+        self maps\mp\_utility::giveperk("specialty_fastsprintrecovery", 1);
+        self maps\mp\_utility::giveperk("specialty_bulletdamage", 1);
+        self maps\mp\_utility::giveperk("specialty_armorpiercing", 1);
+        self maps\mp\_utility::giveperk("specialty_extendedmelee", 1);
+        self maps\mp\_utility::giveperk("specialty_falldamage", 1);
+        self maps\mp\_utility::giveperk("specialty_bulletaccuracy", 1);
+        self maps\mp\_utility::giveperk("specialty_holdbreath", 1);
 	}
 }
 
@@ -141,6 +145,7 @@ isSniper( weapon )
         ||  isSubstr( weapon, "h2_wa2000" ) 
         ||  isSubstr( weapon, "h2_m21" ) 
         ||  isSubstr( weapon, "h2_m40a3" ) 
+        ||  IsSubStr( weapon, "iw9_throwknife")
         //||  isSubstr( weapon, "h1_febsnp" )
         //||  isSubstr( weapon, "h1_junsnp" )
     );
