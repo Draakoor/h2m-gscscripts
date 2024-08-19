@@ -46,6 +46,7 @@ restrictWeapons()
 	self takeWeapon("h1_smokegrenade_mp");
     self takeweapon("h2m_weapon_c4");
     self takeweapon("h2m_weapon_claymore");
+    self takeweapon("specialty_blastshield");
 
 	weapon = self getCurrentWeapon();
 
@@ -70,6 +71,7 @@ restrictWeapons()
 	{
 		self takeWeapon(weapon);
 		self giveWeapon("h2_cheytac_mp");
+        self GiveWeapon("iw9_throwknife_mp");
 
 		// wait .1 second as switchToWeapon doesn't seem to work when called directly after giveWeapon
 		wait(.1);
