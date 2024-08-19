@@ -3,12 +3,14 @@ Collection of h2m gsc scripts
 Sniper only:
 To enable write "set sniperport 1" in your server.cfg
   
-NoSniper/NoTube/NoShotguns/NoLaunchers:  
+NoSniper/NoTube/NoShotguns/NoLaunchers/NOLMGS/BOLTSOnly:  
 Write one of these you wish into you server.cfg  
 set noshotty 1  
 set nolaunchers 1  
 set nogl 1  
 set nosniper 1  
+set boltsonly 1  
+set nolmgs 1  
 
 Watermark:  
 Adds text to your hud for all players  
