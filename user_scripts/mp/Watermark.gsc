@@ -7,7 +7,7 @@ init()
 	level thread hudLoop();
 }
 
-hudLoopBOTTOM()
+hudLoop()
 {
 	info = level createServerFontString("objective", 0.95);
 	info setPoint("CENTER", "BOTTOM", 0, -10);
