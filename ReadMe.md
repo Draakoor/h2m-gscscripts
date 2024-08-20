@@ -20,6 +20,9 @@ Here are the settings for it:
 set anticamp 1 | Enable Anticamp  
 set campTimeLimit 45 | How many seconds is the player allowed to camp before he needs to move  
 set campDistance 64 | How many units must the player move to be not detected as camping.  
+
+Restrict Killstreaks:  
+Add to you server.cfg: set streaksRestricted "xyz xyx"  
   
 CREDITS:  
 Thanks to MXVE for the IW4X Sniper Script (https://github.com/mxve)  
