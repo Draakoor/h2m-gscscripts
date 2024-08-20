@@ -28,8 +28,8 @@ CREDITS:
 Thanks to MXVE for the IW4X Sniper Script (https://github.com/mxve)  
 Thanks to FOE for his only sniper script  
 Thanks to Flex for Bolts only and NoLMGS scripts 
-Thanks to Matt for Noclip/UFO Mode script
-Thanks to Kalitos for the Restrict Killstreak script
-Thanks to Joey for his trickshot script and thanks to drex for fixing it.
-Thanks to justinabellera for his/her trickshot script
-Thanks to Matt.T for the Vanity trickshot script
+Thanks to Matt for Noclip/UFO Mode script  
+Thanks to Kalitos for the Restrict Killstreak script  
+Thanks to Joey for his trickshot script and thanks to drex for fixing it.  
+Thanks to justinabellera for his/her trickshot script  
+Thanks to Matt.T for the Vanity trickshot script  
