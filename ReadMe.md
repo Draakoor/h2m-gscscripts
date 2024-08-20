@@ -1,52 +1,65 @@
-Collection of h2m gsc scripts
+![H2M](https://github.com/user-attachments/assets/42656b5e-5052-457d-a780-bc8f5fa22df3)
 
-Sniper only:
-To enable write "set sniperport 1" in your server.cfg
-  
-NoSniper/NoTube/NoShotguns/NoLaunchers/NOLMGS/BOLTSOnly/RemoveNades:  
-Write one of these you wish into you server.cfg  
-set noshotty 1  
-set nolaunchers 1  
-set nogl 1  
-set nosniper 1  
-set boltsonly 1  
-set nolmgs 1  
-set removenades 1  
+# h2m_gscs
+This is a collection of our GSCs. Credits are included in each script respectively or in the readme.
 
-Watermark:  
-Adds text to your hud for all players  
+# Install steps
+Steps are super simple so I will keep it high level.
 
-Anticamp:
-Here are the settings for it:  
-set anticamp 1 | Enable Anticamp  
-set campTimeLimit 45 | How many seconds is the player allowed to camp before he needs to move  
-set campDistance 64 | How many units must the player move to be not detected as camping.  
+* Drop the scripts into `.\h2m-mod\user_scripts\mp\`.
+* Some scripts require a DVAR to enable / disable, use where required.
 
-Restrict Killstreaks:  
-Add to you server.cfg: set streaksRestricted "xyz xyx"  
+# Which scripts are available?
+* Sniper Only
+  * Only Snipers are allowed, other weapons will be replaced, throwingknife and tactical insertion allowed. Perk replacing is not working at the moment
+  * Enable/Disable DVAR `set sniperport "0"` (off) or `set sniperport "1"` (on)
 
-Private Matches:  
-Enables to farm exp in private matches  
+* Restrict Weapons
+  * Multiple scripts for restricting weapon types
+  * Enable/Disable DVAR  are `set noshotty/nolaunchers/nogl/nosniper/boltsonly/nolmgs/removenades "1"` (on) or `set noshotty/nolaunchers/nogl/nosniper/boltsonly/nolmgs/removenades "0"` (off) (note: each script needs its own dvar)
 
-Misc:  
-Enables Elevators, Bounces soon  
+* Anticamp
+  * Punishes player that are not moving in a period of time
+  * Enable/Disable DVAR `set anticamp "0"` (off) or `set anticamp "1"` (on)
+  * You can set the timer for camptime with `set campTimeLimit "45"`
+  * You can set the distance that needs to be traveld with `set campDistance "65"`
 
-Welcome:  
-Sends a welcome message  
-  
-Retropack/VanityTS/Trickshotmenu 1:  
-Trickshot Scripts  
-  
-CREDITS:  
-Thanks to MXVE for the IW4X Sniper Script (https://github.com/mxve)  
-Thanks to FOE for his only sniper script  
-Thanks to Flex for Bolts only and NoLMGS scripts 
-Thanks to Matt for Noclip/UFO Mode script  
-Thanks to Kalitos for the Restrict Killstreak script  
-Thanks to Joey for his trickshot script and thanks to drex for fixing it.  
-Thanks to justinabellera for his/her trickshot script  
-Thanks to Matt.T for the Vanity trickshot script  
-Thanks to Valacdi for the replace killstreak script  
-Thanks to FerretOps for the welcome script
+* Restrict Killstreaks
+  * Allows you to restrict killstreaks
+  * Choose disabled killstreaks with `set streaksRestricted "radar_mp counter_radar_mp airdrop_marker_mp sentry_mp predator_mp airstrike_mp harrier_airstrike_mp helicopter_mp airdrop_mega_marker_mp stealth_airstrike_mp pavelow_mp chopper_gunner_mp ac130_mp emp_mp nuke_mp"`
 
-More Scripts can also be found at Xerav's Repo (https://github.com/Xevrac/h2m_gscs/tree/main)
+* Replace Killstreaks
+  * Replaces killstreaks with the one which is in the script (at the moment uav drone)
+  * Enable/Disable DVAR `set enableRestrictedKillstreaks "0"` (off) or `set enableRestrictedKillstreaks "1"` (on)
+  * To change killstreak you must edit the the script.
+ 
+* Private Matches
+  * Allows to earn exp in private matches
+    
+* Misc
+  * Enables Elevators at the moment
+ 
+* Retropack/VanityTS/Trickshotmenu
+  * Trickshot Scripts
+ 
+* More scripts coming soon!
+
+# References
+
+[H2M GSC Dump](https://github.com/Jeffx539/h2m-gsc-dump/tree/main)
+
+# More Scripts
+Check Xevrac's repo as well
+[Xevra's Repo](https://github.com/Xevrac/h2m_gscs)
+
+# Credits
+*Thanks to MXVE for the iw4x sniper script (https://github.com/mxve)  
+*Thanks to FOE for his only sniper script  
+*Thanks to Flex for bolts only and nolmgs scripts 
+*Thanks to Matt for noclip/ufo script  
+*Thanks to Kalitos for the restrict killstreak script  
+*Thanks to Joey for his trickshot script and thanks to drex for fixing it.  
+*Thanks to Justinabellera for his/her trickshot script  
+*Thanks to Matt.T for the vanity trickshot script  
+*Thanks to Valacdi for the replace killstreak script  
+*Thanks to FerretOps for the welcome script
