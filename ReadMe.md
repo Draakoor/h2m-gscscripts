@@ -16,7 +16,7 @@ Steps are super simple so I will keep it high level.
 
 * Restrict Weapons
   * Multiple scripts for restricting weapon types
-  * Enable/Disable DVAR  are `set noshotty/nolaunchers/nogl/nosniper/boltsonly/nolmgs/removenades "1"` (on) or `set noshotty/nolaunchers/nogl/nosniper/boltsonly/nolmgs/removenades "0"` (off) (note: each script needs its own dvar)
+  * Enable/Disable DVAR  are `set noshotty/nolaunchers/nogl/nosniper/boltsonly/nolmgs/removenades/noakimbo "1"` (on) or `set noshotty/nolaunchers/nogl/nosniper/boltsonly/nolmgs/removenades/noakimbo "0"` (off) (note: each script needs its own dvar)
 
 * Anticamp
   * Punishes player that are not moving in a period of time
@@ -46,6 +46,7 @@ Steps are super simple so I will keep it high level.
     
 * Misc
   * Enables Elevators at the moment
+  * Enables sv_cheats to 1
  
 * Bots
   * Spawns bots automaticlly
