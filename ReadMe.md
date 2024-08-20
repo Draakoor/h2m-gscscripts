@@ -49,8 +49,8 @@ Steps are super simple so I will keep it high level.
 [H2M GSC Dump](https://github.com/Jeffx539/h2m-gsc-dump/tree/main)
 
 # More Scripts
-Check Xevrac's repo as well  
-[Xevra's Repo](https://github.com/Xevrac/h2m_gscs)
+* Check Xevrac's repo as well: [Xevra's Repo](https://github.com/Xevrac/h2m_gscs)
+* DoktorSAS Mapvote and VanityTS [Trickshot](https://github.com/DoktorSAS/VanityTS) [Mapvote](https://github.com/DoktorSAS/H1Mapvote/tree/main)
 
 # Credits
 * Thanks to MXVE for the iw4x sniper script (https://github.com/mxve)  
@@ -60,7 +60,8 @@ Check Xevrac's repo as well
 * Thanks to Kalitos for the restrict killstreak script  
 * Thanks to Joey for his trickshot script and thanks to drex for fixing it.  
 * Thanks to Justinabellera for his/her trickshot script  
-* Thanks to Matt.T for the vanity trickshot script  
+* Thanks to Matt.T for the fix for vanity trickshot script  
 * Thanks to Valacdi for the replace killstreak script  
 * Thanks to FerretOps for the welcome script
 * Thanks to Xevra for his repo and scripts
+* Thanks to DoktorSAS for his repo and scripts
