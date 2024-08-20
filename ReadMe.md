@@ -49,7 +49,7 @@ Steps are super simple so I will keep it high level.
 [H2M GSC Dump](https://github.com/Jeffx539/h2m-gsc-dump/tree/main)
 
 # More Scripts
-Check Xevrac's repo as well
+Check Xevrac's repo as well  
 [Xevra's Repo](https://github.com/Xevrac/h2m_gscs)
 
 # Credits
@@ -63,3 +63,4 @@ Check Xevrac's repo as well
 * Thanks to Matt.T for the vanity trickshot script  
 * Thanks to Valacdi for the replace killstreak script  
 * Thanks to FerretOps for the welcome script
+* Thanks to Xevra for his repo and scripts
