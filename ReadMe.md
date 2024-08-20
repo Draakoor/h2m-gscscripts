@@ -50,7 +50,7 @@ Steps are super simple so I will keep it high level.
 
 # More Scripts
 * Check Xevrac's repo as well: [Xevra's Repo](https://github.com/Xevrac/h2m_gscs)
-* DoktorSAS Mapvote and VanityTS [Trickshot](https://github.com/DoktorSAS/VanityTS) [Mapvote](https://github.com/DoktorSAS/H1Mapvote/tree/main)
+* DoktorSAS Mapvote and VanityTS [Trickshot](https://github.com/DoktorSAS/VanityTS) [Mapvote](https://github.com/DoktorSAS/H1Mapvote/tree/main) [General Scripts](https://github.com/DoktorSAS/GSC/tree/main)
 * Justin's Retropack [His Repo](https://github.com/justinabellera/retro-pack)
 
 # Credits
