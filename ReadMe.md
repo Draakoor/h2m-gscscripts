@@ -23,6 +23,7 @@ Steps are super simple so I will keep it high level.
   * Enable/Disable DVAR `set anticamp "0"` (off) or `set anticamp "1"` (on)
   * You can set the timer for camptime with `set campTimeLimit "45"`
   * You can set the distance that needs to be traveld with `set campDistance "65"`
+  * You can whitelist campers with `set anticampwhitelist "yourguid,yourguid"`
 
 * Restrict Killstreaks
   * Allows you to restrict killstreaks
