@@ -3,7 +3,7 @@ Collection of h2m gsc scripts
 Sniper only:
 To enable write "set sniperport 1" in your server.cfg
   
-NoSniper/NoTube/NoShotguns/NoLaunchers/NOLMGS/BOLTSOnly:  
+NoSniper/NoTube/NoShotguns/NoLaunchers/NOLMGS/BOLTSOnly/RemoveNades:  
 Write one of these you wish into you server.cfg  
 set noshotty 1  
 set nolaunchers 1  
@@ -11,6 +11,7 @@ set nogl 1
 set nosniper 1  
 set boltsonly 1  
 set nolmgs 1  
+set removenades 1  
 
 Watermark:  
 Adds text to your hud for all players  
@@ -23,6 +24,18 @@ set campDistance 64 | How many units must the player move to be not detected as 
 
 Restrict Killstreaks:  
 Add to you server.cfg: set streaksRestricted "xyz xyx"  
+
+Private Matches:  
+Enables to farm exp in private matches  
+
+Misc:  
+Enables Elevators, Bounces soon  
+
+Welcome:  
+Sends a welcome message  
+  
+Retropack/VanityTS/Trickshotmenu 1:  
+Trickshot Scripts  
   
 CREDITS:  
 Thanks to MXVE for the IW4X Sniper Script (https://github.com/mxve)  
