@@ -9,7 +9,7 @@ main()
         // Set default values for Dvars if they are not defined
         if (!isDefined(getDvar("campTimeLimit")))
         {
-            setDvar("campTimeLimit", "45"); // Default to 60 seconds
+            setDvar("campTimeLimit", "45"); // Default to 45 seconds
         }
         if (!isDefined(getDvar("campDistance")))
         {
@@ -60,6 +60,15 @@ monitorPlayerMovement()
     {
         wait(1); // Check every second
 
+        // Skip checking if player is using a Killstreak
+        if (self usingKillstreak())
+        {
+            self.lastPosition = self.origin;
+            self.lastMoveTime = getTime();
+            self.countdownStarted = false; // Reset countdown flag
+            continue;
+        }
+
         self.distanceMoved = distance(self.lastPosition, self.origin);
 
         if (self.distanceMoved > self.campDistance)
@@ -106,4 +115,10 @@ monitorPlayerMovement()
             }
         }
     }
+}
+
+// Function to check if the player is currently using a Killstreak
+usingKillstreak()
+{
+    return (isDefined(self.killstreak) && self.killstreak);
 }
