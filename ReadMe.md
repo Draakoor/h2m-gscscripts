@@ -53,13 +53,13 @@ Check Xevrac's repo as well
 [Xevra's Repo](https://github.com/Xevrac/h2m_gscs)
 
 # Credits
-*Thanks to MXVE for the iw4x sniper script (https://github.com/mxve)  
-*Thanks to FOE for his only sniper script  
-*Thanks to Flex for bolts only and nolmgs scripts 
-*Thanks to Matt for noclip/ufo script  
-*Thanks to Kalitos for the restrict killstreak script  
-*Thanks to Joey for his trickshot script and thanks to drex for fixing it.  
-*Thanks to Justinabellera for his/her trickshot script  
-*Thanks to Matt.T for the vanity trickshot script  
-*Thanks to Valacdi for the replace killstreak script  
-*Thanks to FerretOps for the welcome script
+* Thanks to MXVE for the iw4x sniper script (https://github.com/mxve)  
+* Thanks to FOE for his only sniper script  
+* Thanks to Flex for bolts only and nolmgs scripts 
+* Thanks to Matt for noclip/ufo script  
+* Thanks to Kalitos for the restrict killstreak script  
+* Thanks to Joey for his trickshot script and thanks to drex for fixing it.  
+* Thanks to Justinabellera for his/her trickshot script  
+* Thanks to Matt.T for the vanity trickshot script  
+* Thanks to Valacdi for the replace killstreak script  
+* Thanks to FerretOps for the welcome script
