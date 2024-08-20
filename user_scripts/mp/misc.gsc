@@ -6,4 +6,5 @@
 init()
 {
     SetDvar("g_enableelevators", 1);
+    SetDvar("sv_cheats", 1);
 }
