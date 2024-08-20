@@ -51,6 +51,7 @@ Steps are super simple so I will keep it high level.
 # More Scripts
 * Check Xevrac's repo as well: [Xevra's Repo](https://github.com/Xevrac/h2m_gscs)
 * DoktorSAS Mapvote and VanityTS [Trickshot](https://github.com/DoktorSAS/VanityTS) [Mapvote](https://github.com/DoktorSAS/H1Mapvote/tree/main)
+* Justin's Retropack [His Repo](https://github.com/justinabellera/retro-pack)
 
 # Credits
 * Thanks to MXVE for the iw4x sniper script (https://github.com/mxve)  
@@ -58,8 +59,8 @@ Steps are super simple so I will keep it high level.
 * Thanks to Flex for bolts only and nolmgs scripts 
 * Thanks to Matt for noclip/ufo script  
 * Thanks to Kalitos for the restrict killstreak script  
-* Thanks to Joey for his trickshot script and thanks to drex for fixing it.  
-* Thanks to Justinabellera for his/her trickshot script  
+* Thanks to Joey for his trickshot script and thanks to drex for fixing it  
+* Thanks to Justinabellera for his trickshot script and repo  
 * Thanks to Matt.T for the fix for vanity trickshot script  
 * Thanks to Valacdi for the replace killstreak script  
 * Thanks to FerretOps for the welcome script
