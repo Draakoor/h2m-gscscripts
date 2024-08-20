@@ -35,6 +35,13 @@ Steps are super simple so I will keep it high level.
  
 * Private Matches
   * Allows to earn exp in private matches
+ 
+* Welcome
+  * Shows a welcome message to players after joining and spawning for the first time.
+
+* Exo Movement
+  * Allows to double jump, dash and slam like in advanced warfare
+  * Enable/Disable DVAR `set exomovment "0"` (off) or `set exomovment "1"` (on)
     
 * Misc
   * Enables Elevators at the moment
