@@ -24,7 +24,7 @@ restrictWeapons()
                 isSubStr(weapon, "ranger_mp") ||
                 isSubStr(weapon, "winchester1200") ||
                 isSubStr(weapon, "m1014_mp") ||
-                isSubStr(weapon, "model118_mp")
+                isSubStr(weapon, "model1887_mp")
 			)
 		)
 	{
