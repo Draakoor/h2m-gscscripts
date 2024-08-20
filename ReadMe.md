@@ -45,5 +45,8 @@ Thanks to Matt for Noclip/UFO Mode script
 Thanks to Kalitos for the Restrict Killstreak script  
 Thanks to Joey for his trickshot script and thanks to drex for fixing it.  
 Thanks to justinabellera for his/her trickshot script  
-Thanks to Matt.T for the Vanity trickshot script
-Thanks to Valacdi for the replace killstreak script
+Thanks to Matt.T for the Vanity trickshot script  
+Thanks to Valacdi for the replace killstreak script  
+Thanks to FerretOps for the welcome script
+
+More Scripts can also be found at Xerav's Repo (https://github.com/Xevrac/h2m_gscs/tree/main)
