@@ -46,6 +46,10 @@ Steps are super simple so I will keep it high level.
 * Misc
   * Enables Elevators at the moment
  
+* Bots
+  * Spawns bots automaticlly
+  * You need to add your server port in the script
+ 
 * Retropack/VanityTS/Trickshotmenu
   * Trickshot Scripts
  
