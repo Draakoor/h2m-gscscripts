@@ -24,5 +24,6 @@ set campDistance 64 | How many units must the player move to be not detected as 
 CREDITS:  
 Thanks to MXVE for the IW4X Sniper Script (https://github.com/mxve)  
 Thanks to FOE for his only sniper script  
-Thanks to Flex for Bolts only and NoLMGS  
-Thanks to Matt for Noclip/UFO Mode  
+Thanks to Flex for Bolts only and NoLMGS scripts 
+Thanks to Matt for Noclip/UFO Mode script
+Thanks to Kalitos for the Restrict Killstreak script
