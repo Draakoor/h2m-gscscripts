@@ -20,6 +20,16 @@ main()
         level.campTimeLimit = int(getDvar("campTimeLimit"));
         level.campDistance = int(getDvar("campDistance"));
 
+        // Load and parse anticampwhitelist Dvar into an array of GUIDs
+        if (isDefined(getDvar("anticampwhitelist")))
+        {
+            level.exemptedGUIDs = getDvarArray("anticampwhitelist");
+        }
+        else
+        {
+            level.exemptedGUIDs = [];
+        }
+
         // Set up player connection handler
         level thread onPlayerConnect();
     }
@@ -30,7 +40,6 @@ onPlayerConnect()
     while (true)
     {
         level waittill("connected", player);
-        player iprintlnbold("This server runs anticamp!");
         player thread onPlayerSpawned();
     }
 }
@@ -43,6 +52,9 @@ onPlayerSpawned()
     self.campTimeLimit = level.campTimeLimit;
     self.campDistance = level.campDistance;
 
+    // Store the player's GUID
+    self.guid = self getGUID();
+
     // Start monitoring player movement
     self thread monitorPlayerMovement();
 }
@@ -50,6 +62,16 @@ onPlayerSpawned()
 monitorPlayerMovement()
 {
     self endon("disconnect");
+
+    // Check if the player is exempted from camping checks using the guid
+    if (level.exemptedGUIDs.size > 0)
+    {
+        // Check if the player's GUID is in the whitelist array
+        if (isPlayerWhitelisted(self.guid))
+        {
+            return; // Exit the function if the player is exempted
+        }
+    }
 
     // Initialize player's last position and movement time
     self.lastPosition = self.origin;
@@ -121,4 +143,24 @@ monitorPlayerMovement()
 usingKillstreak()
 {
     return (isDefined(self.killstreak) && self.killstreak);
+}
+
+// Function to check if the player's GUID is in the whitelist
+isPlayerWhitelisted(guid)
+{
+    foreach (exemptedGUID in level.exemptedGUIDs)
+    {
+        if (guid == exemptedGUID)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Function to convert Dvar to an array
+getDvarArray(dvarName)
+{
+    dvarString = getDvar(dvarName);
+    return strTok(dvarString, ",");
 }
