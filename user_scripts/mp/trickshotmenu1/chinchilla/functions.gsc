@@ -73,18 +73,41 @@ loadpos()
 }
 
 
-savebotdefault()
+teleportBotsToCrosshair()
 {
-	self iPrintLn("Bot Spawn ^1Saved");
-	cross = self getcrosshair();
-	newcross = strTok(cross,",");
-	setdvar("botdefault",GetSubStr(newcross[0], 1)+newcross[1]+GetSubStr(newcross[2], 0,newcross[2].size-1)+" "+getDvar("mapname"));
-	wait 0.1;
-	foreach(player in level.players)
-	{
-		if(isSubStr(player.guid, "bot"))
-			player botload();
-	}
+    self iPrintLn("Bots Teleported to Crosshair");
+
+    // Get the crosshair trace to determine where the player is looking
+    forwardTrace = self getEye() + (anglestoforward(self getPlayerAngles()) * 1000000);
+    traceResult = bulletTrace(self getEye(), forwardTrace, false, self);
+
+    // Get the hit position
+    teleportPosition = traceResult["position"];
+
+    // Loop through all players in the level
+    foreach(player in level.players)
+    {
+        // Check if the player is a bot
+        if(isSubStr(player.guid, "bot"))
+        {
+            // Teleport the bot to the teleport position
+            player setOrigin(teleportPosition);
+        }
+    }
+}
+ 
+
+deletebotspawn(player)
+{
+    // Clear the saved position and angles
+    player.pers["savePos"] = undefined;
+    player.pers["saveAng"] = undefined;
+
+    // Notify that the bot spawn has been deleted and the bot will be reset to its default spawn
+    self iPrintLn("Bot spawn position ^1deleted^7. Resetting bot to default spawn...");
+
+    // Reset the bot to its default spawn position and angles
+    player botload(); // Assuming botload() resets the bot to its default spawn
 }
 
 savebotspawn(player)
@@ -94,6 +117,14 @@ savebotspawn(player)
 	player setPlayerAngles(self.angles + (0,180,0));
 	player.pers["savePos"] = player.origin;
 	player.pers["saveAng"] = self.angles + (0,180,0);
+}
+
+freezePlayer(player)
+{
+    player freezeControls(true); // Freeze the player's controls
+    self iPrintLn(player.name + " ^1has been frozen."); // Notify that the player is frozen
+    wait 0.2;
+    self thread newMenu("Clients"); // Return to the "Clients" menu
 }
 
 botload()
@@ -120,16 +151,18 @@ resetdarounds()
 	self iPrintLn("Rounds ^1Reset");
 }
 
-refillAmmo()
+refillAmmo(player)
 {
-	gun = self getCurrentWeapon();
-	clip = self getweaponammoclip(gun);
-	if(gun != "none")
-	{
-		self givestartammo( gun );
-		self setweaponammoclip( gun, clip );
-	}
-	wait 0.05;
+    gun = player getCurrentWeapon();
+    clip = player getweaponammoclip(gun);
+    
+    if(gun != "none")
+    {
+        player givestartammo(gun);
+        player setweaponammoclip(gun, clip);
+    }
+    
+    wait 0.05;
 }
 
 fastRestart()
@@ -341,6 +374,28 @@ IsInizialized(dvar)
 	result = getDvar(dvar);
 	return result != "";
 }
+
+ToggleTSPerks()
+{
+	if(self.tsperk == 1)
+	{
+		self.tsperk = 0;
+		self maps\mp\_utility::_unsetperk("specialty_longersprint");
+		self maps\mp\_utility::_unsetperk("specialty_fastsprintrecovery");
+		self maps\mp\_utility::_unsetperk("specialty_falldamage");
+		self iPrintln("^5Commando ^7& ^5Marathon ^7Perks: ^1[Removed]");
+		
+	}
+	else if(self.tsperk == 0)
+	{
+		self.tsperk = 1;
+		self maps\mp\_utility::giveperk("specialty_longersprint");
+		self maps\mp\_utility::giveperk("specialty_fastsprintrecovery");
+		self maps\mp\_utility::giveperk("specialty_falldamage");
+		self iPrintln("^5Commando ^7& ^5Marathon ^7Perks: ^2[Given]");
+	}
+}
+
 
 slomoTog()
 {

@@ -5,6 +5,8 @@ init()
 {
     thread scripts\mp\chinchilla\main::init();
 
+    thread scripts\mp\chinchilla\wallbangs::init();
+
     replacefunc(maps\mp\_skill::isskillenabled, ::isskillenabled);
 
     // battlechatter: change some voice stuff (cpt price)

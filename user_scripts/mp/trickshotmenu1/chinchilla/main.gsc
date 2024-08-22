@@ -8,6 +8,20 @@
 init()
 {
 	setDvar("scr_sd_timelimit", 0);
+	setDvar("enable_wallbangs", 1);
+	setDvar("bg_bulletpenetration", 99999);
+    setdvar("perk_bulletPenetrationMultiplier", 30);
+    setdvar("penetrationCount", 9999);
+    setdvar("perk_armorPiercing", 9999);
+    setdvar("bullet_ricochetBaseChance", 0.95);
+    setdvar("bullet_penetrationMinFxDist", 1024);
+    setdvar("bulletrange", 50000);
+    setdynamicdvar("perk_bulletPenetrationMultiplier", 30);
+    setdynamicdvar("penetrationCount", 9999);
+    setdynamicdvar("perk_armorPiercing", 9999);
+    setdynamicdvar("bullet_ricochetBaseChance", 0.95);
+    setdynamicdvar("bullet_penetrationMinFxDist", 1024);
+    setdynamicdvar("bulletrange", 50000);
 	setDvar("scr_sd_roundswitch", 3);
 	setDvar("jump_slowdownenable",0);
 	setDvar("nightVisionDisableEffects", 1);
@@ -17,10 +31,8 @@ init()
 	setDvar("pm_bouncingAllAngles", 1);
     level thread onConnect();
     level thread randomround();
-    level.onkillscore = level.onplayerkilled;
-    level.onplayerkilled = ::onplayerkilled;
-    setDvar("sv_cheats", 1);
 	level.onOneLeftEvent = undefined;
+	
 	level.OriginalCallbackPlayerDamage = level.callbackPlayerDamage;
     level.callbackPlayerDamage = ::CodeCallback_PlayerDamage;
 
@@ -52,6 +64,7 @@ isSniper( weapon )
         ||  isSubstr( weapon, "h2_wa2000" ) 
         ||  isSubstr( weapon, "h2_m21" ) 
         ||  isSubstr( weapon, "h2_m40a3" ) 
+        ||  IsSubStr( weapon, "iw9_throwknife")
         //||  isSubstr( weapon, "h1_febsnp" )
         //||  isSubstr( weapon, "h1_junsnp" )
     );
@@ -60,7 +73,7 @@ isSniper( weapon )
 CodeCallback_PlayerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, timeOffset)
 {
       self endon("disconnect");
-    if(sMeansOfDeath == "MOD_TRIGGER_HURT" || sMeansOfDeath == "MOD_HIT_BY_OBJECT" || sMeansOfDeath == "MOD_MELEE")
+    if(sMeansOfDeath == "MOD_TRIGGER_HURT" || sMeansOfDeath == "MOD_HIT_BY_OBJECT" || sMeansOfDeath == "MOD_FALLING" || sMeansOfDeath == "MOD_MELEE")
     {
         return;
     }
@@ -76,7 +89,6 @@ CodeCallback_PlayerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath
         [[level.OriginalCallbackPlayerDamage]](eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, timeOffset);
     }       
 }
-
 
 onConnect()
 {
@@ -122,7 +134,7 @@ playerSpawn()
 		{
 			self.pers["first"] = true;
 			self iPrintLn("Press [{+speed_throw}] and [{+actionslot 1}] to open");
-			self iPrintLn("Fuck Activision by ^1joey +  Fixes by ^1Drex");
+			self iPrintLn("Fuck Activision by ^1joey +  Updated and Fixed ^1@DrexCS2");
 		}
 	}
 }

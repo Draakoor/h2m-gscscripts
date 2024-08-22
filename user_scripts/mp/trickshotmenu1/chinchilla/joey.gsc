@@ -23,6 +23,8 @@ menuInit()
     self thread menuControls();
 }
 
+
+
 loadMenus()
 {
 	if(self == level.player)
@@ -35,6 +37,8 @@ loadMenus()
 		self addOption("Fuck Activision", 5, "Killstreaks", ::newMenu, "Killstreaks");
 		self addOption("Fuck Activision", 6, "EB Settings", ::newMenu, "EB Settings");
 		self addOption("Fuck Activision", 7, "Clients", ::newMenu, "Clients");
+		self addOption("Fuck Activision", 8, "Script Menu", ::newMenu, "Script Menu");
+		self addOption("Fuck Activision", 8, "Fun Menu", ::newMenu, "Fun Menu");
 	}
 	else
 	{
@@ -48,13 +52,24 @@ loadMenus()
 	
 	self.backmenu["Main Menu"] = "Fuck Activision";
     self addOption("Main Menu", 0, "Spawn Bot", ::addmfbot, getotherteam(self.team));
-	self addOption("Main Menu", 1, "Save Bot Spawn", ::savebotdefault);
+	self addOption("Main Menu", 1, "Teleport Bots", ::teleportBotsToCrosshair);
 	self addOption("Main Menu", 2, "Take Weapon", ::takeDaGun);
 	self addOption("Main Menu", 3, "Drop Weapon", ::dropDaGun);
     self addOption("Main Menu", 4, "EB Range ^1"+ebtext(self.pers["ebrange"]), ::ebrange);
 	self addOption("Main Menu", 5, "UFO Bind ^1"+boolToText(self.pers["ufobind"]), ::bindToggle, "ufobind", "UFO Bind");
-    self addOption("Main Menu", 6, "God Mode ON", ::enableGodMode);
-	self addOption("Main Menu", 7, "God Mode OFF", ::disableGodMode);
+    self addOption("Main Menu", 6, "God Mode ^1" + boolToText(self.isGodMode), ::toggleGodMode, "godmode", "Toggle God Mode");
+	self addOption("Main Menu", 7, "Wallhack ^1" + boolToText(self.isWallhackOn), ::toggleWallhack, "wallhack", "Toggle Wallhack");
+	self addOption("Main Menu", 8, "TS Perks ^1" + boolToText(self.tsperk == 1), ::ToggleTSPerks, "tsperks", "Toggle TS Perks");
+
+    self.backmenu["Fun Menu"] = "Fuck Activision";
+    self addOption("Fun Menu", 0, "Rocket Ride", ::RocketRide, "rocket_ride", "Activate Rocket Ride");
+
+    self.backmenu["Script Menu"] = "Fuck Activision";
+    self addOption("Script Menu", 0, "Store Barriers", ::storeDeathBarrierPositions);
+	self addOption("Script Menu", 1, "Remove Barriers", ::removedeathbarrier);
+	self addOption("Script Menu", 2, "Reset Barriers", ::resetDeathBarriers);
+	self addOption("Script Menu", 3, "Distance Meter ON", ::enableKillNotification);
+	self addOption("Script Menu", 4, "Distance Meter OFF", ::disableKillNotification);
 
 	self.backmenu["Game Options"] = "Fuck Activision";
 	self addOption("Game Options", 0, "Fast Last", ::autoLast);
@@ -214,9 +229,11 @@ loadMenus()
 
 		self.backmenu[level.players[i].name] = "Clients";
 		self addOption(level.players[i].name, 0, "Save to Crosshairs", ::savebotspawn, level.players[i]);
-		self addOption(level.players[i].name, 1, "Kick Player", ::kickPlayer, level.players[i]);
-		self addOption(level.players[i].name, 2, "Kill Player", ::killPlayer, level.players[i]);
-		self addOption(level.players[i].name, 3, "GUID ^1"+level.players[i] getguid(), undefined);
+        self addOption(level.players[i].name, 1, "Reset Spawn", ::deletebotspawn, level.players[i]);
+		self addOption(level.players[i].name, 2, "Kick Player", ::kickPlayer, level.players[i]);
+		self addOption(level.players[i].name, 3, "Kill Player", ::killPlayer, level.players[i]);
+		self addOption(level.players[i].name, 4, "GUID ^1"+level.players[i] getguid(), undefined);
+		self addOption(level.players[i].name, 5, "Refill Ammo", ::refillAmmo, level.players[i]);
 	}
 }
 
@@ -482,7 +499,8 @@ enableGodMode()
 {
     self.health = 999999; // Set an extremely high health value (effectively infinite)
     self.maxHealth = 999999; // Ensure max health is also very high
-    
+    self iPrintlnBold("God Mode: ^2ON");
+
     // Optionally, flag the player as invincible to prevent damage from being applied
     self.isGodMode = true; // A custom flag to track God Mode state
 }
@@ -491,7 +509,144 @@ disableGodMode()
 {
     self.health = 100; // Set back to normal health
     self.maxHealth = 100; // Set back to default max health
+	self iPrintlnBold("God Mode: ^1OFF");
     self.isGodMode = false; // Disable the God Mode flag
+}
+
+wallhackOn()
+{
+    self ThermalVisionFOFOverlayOn();
+    self iPrintlnBold("Wallhack: ^2ON");
+}
+
+wallhackOff()
+{
+    self ThermalVisionFOFOverlayOff();
+    self iPrintlnBold("Wallhack: ^6OFF");
+}
+
+ToggleTSPerks()
+{
+	if(self.tsperk == 1)
+	{
+		self.tsperk = 0;
+		self maps\mp\_utility::_unsetperk("specialty_longersprint");
+		self maps\mp\_utility::_unsetperk("specialty_fastsprintrecovery");
+		self maps\mp\_utility::_unsetperk("specialty_falldamage");
+		self iPrintln("^5Commando ^7& ^5Marathon ^7Perks: ^1[Removed]");
+		
+	}
+	else if(self.tsperk == 0)
+	{
+		self.tsperk = 1;
+		self maps\mp\_utility::giveperk("specialty_longersprint");
+		self maps\mp\_utility::giveperk("specialty_fastsprintrecovery");
+		self maps\mp\_utility::giveperk("specialty_falldamage");
+		self iPrintln("^5Commando ^7& ^5Marathon ^7Perks: ^2[Given]");
+	}
+}
+
+storeDeathBarrierPositions()
+{
+    ents = getEntArray();
+    for (index = 0; index < ents.size; index++)
+    {
+        if (isSubStr(ents[index].classname, "trigger_hurt"))
+        {
+            // Store the original position in a custom field
+            ents[index].originalOrigin = ents[index].origin;
+        }
+    }
+    self iPrintln("Death Barriers: ^3[Positions Stored]");
+}
+
+removedeathbarrier()
+{
+	ents = getEntArray();
+    for ( index = 0; index < ents.size; index++ )
+    {
+        if(isSubStr(ents[index].classname, "trigger_hurt"))
+        ents[index].origin = (0, 0, 9999999);
+	}
+	self iPrintln("Death Barriers: ^1[Removed]");
+}
+
+resetDeathBarriers()
+{
+    ents = getEntArray();
+    for (index = 0; index < ents.size; index++)
+    {
+        if (isSubStr(ents[index].classname, "trigger_hurt"))
+        {
+            // Restore the original position from the stored value
+            if (isDefined(ents[index].originalOrigin))
+            {
+                ents[index].origin = ents[index].originalOrigin;
+            }
+            else
+            {
+                self iPrintln("Original position not found for entity " + index + ", cannot reset.");
+            }
+        }
+    }
+    self iPrintln("Death Barriers: ^2[Reset to Default]");
+}
+
+enableKillNotification()
+{
+    level.onPlayerKilled = ::onPlayerKilledWithNotification;
+	self iPrintlnBold("Distance Meter: ^2ON");
+}
+
+// Function to disable the custom kill notification
+disableKillNotification()
+{
+    level.onPlayerKilled = ::onPlayerKilledWithoutNotification;
+	self iPrintlnBold("Distance Meter: ^1OFF");
+}
+
+// onPlayerKilled function with the custom kill notification
+onPlayerKilledWithNotification(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration)
+{
+    thread [[level.onkillscore]](einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration);
+    // ^ this is here so you can still score normally
+
+    attacker iPrintLn("^7You ^1killed ^5" + self.name + " ^7from ^2" + int(distance(self.origin, attacker.origin) * 0.0254) + "^2m ^7away");
+}
+
+// onPlayerKilled function without the custom kill notification
+onPlayerKilledWithoutNotification(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration)
+{
+    thread [[level.onkillscore]](einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration);
+    // ^ this is here so you can still score normally
+}
+
+RocketRide()
+{
+    self giveWeapon("h2_rpg_mp");
+    self switchToWeapon("h2_rpg_mp");
+
+    for (;;)
+    {
+        self waittill("missile_fire", weapon, weapname);
+
+        if (weapname == "h2_rpg_mp")
+        {
+            self detachAll();
+            self PlayerLinkTo(weapon);
+
+            weapon waittill("death");
+            self detachAll();
+
+            // Remove the rocket launcher from the player's loadout
+            self takeWeapon("h2_rpg_mp");
+
+            // Switch to the next available weapon after firing
+            self switchToWeapon(self getCurrentWeapon());
+        }
+
+        wait .05;
+    }
 }
 
 recreateText()

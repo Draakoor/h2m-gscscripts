@@ -312,6 +312,40 @@ toggleCan()
     self.menutext[self.scroll] setSafeText("Always Canswap ^1"+displayName(self.pers["alwayscan_type"]));
 }
 
+
+toggleWallhack()
+{
+    // Check if Wallhack is already enabled
+    if (isDefined(self.isWallhackOn) && self.isWallhackOn)
+    {
+        // If Wallhack is enabled, disable it
+        wallhackOff();
+        self.isWallhackOn = false;
+    }
+    else
+    {
+        // If Wallhack is not enabled, enable it
+        wallhackOn();
+        self.isWallhackOn = true;
+    }
+}
+
+
+toggleGodMode()
+{
+    // Check if God Mode is already enabled
+    if (isDefined(self.isGodMode) && self.isGodMode)
+    {
+        // If God Mode is enabled, disable it
+        disableGodMode();
+    }
+    else
+    {
+        // If God Mode is not enabled, enable it
+        enableGodMode();
+    }
+}
+
 swapcheck()
 {
     lastweap = undefined;
@@ -426,39 +460,39 @@ alwayscanswap(weapon)
 
 aimbot_main()
 {
-	self endon( "disconnect" );
-	self endon( "game_ended" );
-	for(;;)
-	{
-		self waittill ("weapon_fired");
-		cross = self getcrosshair();
-		blood = randomInt(13);  
-		if (blood < 11) 
-		{
-			mod = "MOD_RIFLE_BULLET";
-			location = "torso_upper";
-		} 
-		else
-		{
-			mod = "MOD_HEAD_SHOT";
-			location = "head";	
-		}
-		foreach(player in level.players)
-		{
-			if(self isvalidenemy(player) && distance(player.origin, cross) < self.pers["ebrange"] && self goodweap())
-			{
-				player thread [[level.callbackPlayerDamage]] ( self, self, 2000000, 8, mod, self getcurrentweapon(), ( 0, 0, 0 ), ( 0, 0, 0 ), location, 0, 0 );
+    self endon( "disconnect" );
+    self endon( "game_ended" );
+    for(;;)
+    {
+        self waittill ("weapon_fired");
+        cross = self getcrosshair();
+        blood = randomInt(13);  
+        if (blood < 11) 
+        {
+            mod = "MOD_RIFLE_BULLET";
+            location = "torso_upper";
+        } 
+        else
+        {
+            mod = "MOD_HEAD_SHOT";
+            location = "head";  
+        }
+        foreach(player in level.players)
+        {
+            if(self isvalidenemy(player) && distance(player.origin, cross) < self.pers["ebrange"] && self goodweap())
+            {
+                player thread [[level.callbackPlayerDamage]] ( self, self, 2000000, 8, mod, self getcurrentweapon(), ( 0, 0, 0 ), ( 0, 0, 0 ), location, 0, 0 );
                 if(self.pers["ebprone"])
                     self setstance("prone");
 
                 break;
-			}
-		}
+            }
+        }
         if(self getCurrentWeapon() == self.pers["ebtag"] && self.pers["ebtag"] != "none")
             self thread maps\mp\gametypes\_damagefeedback::updateDamageFeedback(" ");
 
-		wait 0.05;
-	}
+        wait 0.05;
+    }
 }
 
 getcrosshair()

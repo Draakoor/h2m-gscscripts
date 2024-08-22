@@ -1,0 +1,28 @@
+Fuck Activision H2M Menu Updated And Some Stuff Fixed by Drex (@DrexCS2) Of ChinChilla Originally Made By joey (@plugwalker47) And Much Love To Flumzy (@xFlumzy) Who Wasted Alot Of Time Helping Me Test Most Stuff & akaBrady (@akaBradys) For Giving Me The Distance Meter Code And Helping Me In General & FOE Who Made The Sniper Only Script & Draakoor (@Draakoor) (https://github.com/Draakoor) For Collecting H2M GSC Scripts In One Place
+
+@ = Twitter 
+
+MENU BINDS:
+Ads + Dpad-Up        =  Open Menu
+Dpad-Up              =  Up
+Dpad-Down            =  Down
+Reload               =  Select
+Knife                =  Back
+
+
+TRICKSHOT BINDS:
+Crouch + Dpad-Left   =  Save Position
+Crouch + Dpad-Up     =  Load Position 
+Crouch + Knife       =  UFO 
+
+
+Last Update: 22.08.24 (08.22.24)
+Added:
+-Rocket Rides
+-Remove/Restore Death Barriers
+-Added More Toggle Options
+-Distance Meter (Can Be Turned Off And On)
+-Reset Client Spawns
+-Refill Client Ammo
+-And More
+
