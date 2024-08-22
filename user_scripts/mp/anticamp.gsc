@@ -82,7 +82,7 @@ monitorPlayerMovement()
     {
         wait(1); // Check every second
 
-        // Skip checking if player is using a Killstreak
+        // Skip checking if player is using a specific Killstreak
         if (self usingKillstreak())
         {
             self.lastPosition = self.origin;
@@ -142,8 +142,9 @@ monitorPlayerMovement()
 // Function to check if the player is currently using a Killstreak
 usingKillstreak()
 {
-    return (isDefined(self.killstreak) && self.killstreak);
+    return (isDefined(self.killstreak) && (self.killstreak == "predator_missile" || self.killstreak == "ac130" || self.killstreak == "chopper_gunner"));
 }
+
 
 // Function to check if the player's GUID is in the whitelist
 isPlayerWhitelisted(guid)
@@ -163,4 +164,10 @@ getDvarArray(dvarName)
 {
     dvarString = getDvar(dvarName);
     return strTok(dvarString, ",");
+}
+
+// Helper function to check specific killstreaks
+isUsingSpecificKillstreak(killstreakName)
+{
+    return isDefined(self.currentKillstreak) && self.currentKillstreak == killstreakName;
 }
