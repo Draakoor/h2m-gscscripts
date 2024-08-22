@@ -48,6 +48,10 @@ Steps are super simple so I will keep it high level.
   * Enables Elevators at the moment
   * Enables sv_cheats to 1
  
+* Wallbang everything
+  * Allows wallbanging everything
+  *  Enable/Disable DVAR `enable_wallbangs "0"` (off) or `enable_wallbangs "1"` (on)
+ 
 * Bots
   * Spawns bots automaticlly
   * You need to add your server port in the script
@@ -79,3 +83,4 @@ Steps are super simple so I will keep it high level.
 * Thanks to FerretOps for the welcome script
 * Thanks to Xevra for his repo and scripts
 * Thanks to DoktorSAS for his repo and scripts
+* Thanks to Craig for his wallbang script
