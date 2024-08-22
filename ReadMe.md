@@ -71,6 +71,7 @@ Steps are super simple so I will keep it high level.
 * Justin's Retropack [His Repo](https://github.com/justinabellera/retro-pack)
 
 # Credits
+* Thanks to SSH for his scripts (say_xuid, say_guid)!
 * Thanks to MXVE for the iw4x sniper script (https://github.com/mxve)  
 * Thanks to FOE for his only sniper script  
 * Thanks to Flex for bolts only and nolmgs scripts 
