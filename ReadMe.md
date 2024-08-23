@@ -63,6 +63,9 @@ Steps are super simple so I will keep it high level.
 * Retropack/Trickshotmenu
   * Trickshot Scripts
 
+* Allow Team Selection
+  * This is a client script, which allows to select teams after connecting to a dedicated server
+
  * WIP Scripts
   * These scripts are not supported and might be unstable or dont work!
  
