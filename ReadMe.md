@@ -62,6 +62,9 @@ Steps are super simple so I will keep it high level.
  
 * Retropack/Trickshotmenu
   * Trickshot Scripts
+
+ * WIP Scripts
+  * These scripts are not supported and might be unstable or dont work!
  
 * More scripts coming soon!
 
