@@ -1,16 +1,17 @@
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\gametypes\_playerlogic;
+#include maps\mp\gametypes\_menus;
 
 main()
 {
     if (!isDefined(getDvar("switchteamscooldown")))
         {
-            setDvar("switchteamscooldown", "60"); // Default to 45 seconds
+            setDvar("switchteamscooldown", "60"); // Default to 60 seconds
         }
         if (!isDefined(getDvar("switchteamslimit")))
         {
-            setDvar("switchteamslimit", "2"); // Default to 64 units
+            setDvar("switchteamslimit", "2"); // default 2 commands per player
     }
     level.cooldownTime = int(getDvar("switchteamscooldown")); // Cooldown time in seconds
     level.switchLimit = int(getDvar("switchteamslimit")); // Maximum number of switches per player per game
@@ -75,6 +76,8 @@ switchTeams()
     currentTeam = self.team;
     newTeam = (currentTeam == "axis") ? "allies" : "axis";
     self notify("menuresponse", "team_marinesopfor", newTeam);
-    self maps\mp\gametypes\_menus::setteam(newTeam);
-    self thread [[ level.spawnplayer ]]();
+    //self maps\mp\gametypes\_menus::setteam(newTeam);
+    self.team = newTeam;
+    addtoTeam(newTeam);
+    self suicide();
 }
