@@ -56,7 +56,11 @@ Steps are super simple so I will keep it high level.
   * Spawns bots automaticlly
   * You need to add your server port in the script
  
-* Retropack/VanityTS/Trickshotmenu
+ * Switchteams
+  * Allows Players to switch teams with the command `!switchteams` but only 2 times with a cooldown of 60 seconds, server does automaticlly autobalance
+  * DVAR Cooldown `set switchteamscooldown 60` and DVAR Limit `set switchteamslimit 2`
+ 
+* Retropack/Trickshotmenu
   * Trickshot Scripts
  
 * More scripts coming soon!
