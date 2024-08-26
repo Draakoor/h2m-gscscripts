@@ -376,25 +376,30 @@ addOption(menu, index, text, func, arg1, arg2)
         self.menus[menu][index].arg2 = arg2;
 }
 
-newMenu(menu, fade)
+newMenu(menu)
 {
     foreach(text in self.menutext)
     {
         text destroy();
     }
+	// clear existing menu variable
+	self.menus[menu] = undefined;
+
 	self thread loadMenus();
     self.lastscroll[self.current] = self.scroll;
-    if(!isDefined(self.lastscroll[menu]))
+    if(!isDefined(self.lastscroll[menu]))	
         self.scroll = 0;
     else
         self.scroll = self.lastscroll[menu];
 
-    self.current = menu;
-    self.title setSafeText(menu);
+	self.current = menu;
+	self.title setSafeText(menu);
+
     for(i=0;i<self.menus[menu].size;i++)
     {
         self.menutext[i] = self createText("objective", 1.4, "LEFT", "CENTER", -80, -45 + i * 15, 2, (1,1,1), 1, self.menus[menu][i].text);
     }
+
     self thread updateScroll();
     self thread updateBase();
 }
