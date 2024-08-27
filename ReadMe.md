@@ -82,6 +82,7 @@ Steps are super simple so I will keep it high level.
 * SSH's Adminmenu [Repo](https://github.com/S3RAPH-1M/H2M-Admin-Menu)
 
 # Credits
+* Thanks to Zyrus1337 for his admin commmands script!
 * Thanks to SSH for his scripts (say_xuid, say_guid)!
 * Thanks to MXVE for the iw4x sniper script (https://github.com/mxve)  
 * Thanks to FOE for his only sniper script  
