@@ -119,7 +119,7 @@ monitorPlayerMovement()
 
                     // Check if the player has moved during the countdown
                     self.distanceMoved = distance(self.lastPosition, self.origin);
-                    if (self.distanceMoved > self.campDistance)
+                    if (self.distanceMoved > self.campDistance || self usingKillstreak())
                     {
                         // Player moved during the countdown, reset countdown
                         self.countdownStarted = false;
