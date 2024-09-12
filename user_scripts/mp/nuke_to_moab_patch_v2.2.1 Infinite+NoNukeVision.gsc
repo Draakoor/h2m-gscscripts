@@ -11,6 +11,7 @@
 #include maps\mp\gametypes\_hud_util;
 #include maps\mp\gametypes\_gamelogic;
 #include maps\mp\h2_killstreaks\_nuke;
+#include maps\mp\h2_killstreaks\_emp;
 
 init()
 {
@@ -21,6 +22,21 @@ init()
     replaceFunc(maps\mp\h2_killstreaks\_nuke::nukeEffects, ::customNukeEffects);
     replaceFunc(maps\mp\h2_killstreaks\_nuke::doNuke, ::customDoNuke);
 
+
+	//level._effect[ "emp_flash" ] = loadfx( "fx/explosions/nuke_flash" );
+
+	level.teamEMPed["allies"] = false;
+	level.teamEMPed["axis"] = false;
+	level.empPlayer = undefined;
+
+	if ( level.teamBased )
+		level thread EMP_TeamTracker();
+	else
+		level thread EMP_PlayerTracker();
+
+	level.killstreakFuncs["emp_mp"] = ::h2_EMP_Use;
+
+	level thread onPlayerConnect();
 
     // For use with giveNuke
     // Test thread
@@ -59,6 +75,7 @@ init()
 //     }
 // }
 
+/*
 customNukeSlowMo()
 {
 	level endon ( "nuke_cancelled" );
@@ -81,6 +98,7 @@ customNukeSlowMo()
 	// Ensure global reset after the nuke
 	level thread resetGameSpeed();
 }
+*/
 
 /*
 customNukeVision()
@@ -135,7 +153,7 @@ customDoNuke( allowCancel )
 
 	level thread delaythread_nuke( (level.nukeTimer - 3.3), ::nukeSoundIncoming );
 	level thread delaythread_nuke( level.nukeTimer, ::nukeSoundExplosion );
-	level thread delaythread_nuke( level.nukeTimer, ::customNukeSlowMo );
+	//level thread delaythread_nuke( level.nukeTimer, ::customNukeSlowMo );
 	level thread delaythread_nuke( level.nukeTimer, ::nukeEffects );
 	//level thread delaythread_nuke( (level.nukeTimer + 0.25), ::customNukeVision );
 	level thread delaythread_nuke( (level.nukeTimer + 1.5), ::nukeDeath );
@@ -154,6 +172,7 @@ customDoNuke( allowCancel )
 		clockObject playSound( "h2_nuke_timer" );
 		wait( 1.0 );
 	}
+
 }
 
 customNukeEffects()
@@ -164,13 +183,21 @@ customNukeEffects()
 	level.nukeCountdownIcon destroy();
 
 	level.nukeDetonated = true;
+	
+	level maps\mp\h2_killstreaks\_emp::h2_EMP_Use();
+	
+	//level maps\mp\h2_killstreaks\_emp::_visionsetnaked( "coup_sunmap blind", 0.1 );
+	//thread empEffects();
+	level._effect[ "emp_flash" ] = loadfx( "fx/explosions/nuke_flash" );
+	//level maps\mp\h2_killstreaks\_emp::empEffects();
 	level maps\mp\h2_killstreaks\_emp::destroyActiveVehicles( level.nukeInfo.player );
-
+	//level maps\mp\h2_killstreaks\_emp::EMP_TeamTracker();
 	foreach( player in level.players )
 	{
 		playerForward = anglestoforward( player.angles );
 		playerForward = ( playerForward[0], playerForward[1], 0 );
 		playerForward = VectorNormalize( playerForward );
+		
 
 		nukeDistance = 5000;
 
@@ -179,7 +206,10 @@ customNukeEffects()
 		nukeEnt.angles = ( 0, (player.angles[1] + 180), 90 );
 
 		nukeEnt thread nukeEffect( player );
+		
 		player.nuked = true;
+
+		
 	}
 }
 
