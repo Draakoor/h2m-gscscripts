@@ -1,4 +1,13 @@
-<@1157700979886657619> applyAntiHardscopeSystem()
+#include common_scripts\utility;
+#include maps\mp\_utility;
+#include maps\mp\gametypes\_hud_util;
+
+init()
+{
+    self thread applyAntiHardscopeSystem();
+}
+
+applyAntiHardscopeSystem()
 {
     self endon("disconnect");
 
@@ -10,7 +19,7 @@
     for (;;)
     {
         AntiHardScopeEnabled = true;
-        MaxScopeTime = 0.5; // Adjust time here
+        MaxScopeTime = 0.2; // Adjust time here
         if (AntiHardScopeEnabled)
         {
             self thread monitorAntiHardscope(MaxScopeTime);
