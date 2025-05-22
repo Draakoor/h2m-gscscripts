@@ -1,52 +1,93 @@
-#include common_scripts\utility;
-#include maps\mp\_utility;
-#include maps\mp\gametypes\_hud_util;
-
-init()
+<@1157700979886657619> applyAntiHardscopeSystem()
 {
-    self thread apply();
-}
+    self endon("disconnect");
 
-apply()
-{
-    AntiHardScope = true;
-    MaxScopeTime = 0.22;
-    
-    if (AntiHardScope)
+    // Prevent duplicate threads
+    if (isDefined(self.hardscopeThread))
+        return;
+    self.hardscopeThread = true;
+    // Loop the anti-hardscope system after player death
+    for (;;)
     {
-         self thread EnableAntiHardScope(MaxScopeTime);
+        AntiHardScopeEnabled = true;
+        MaxScopeTime = 0.5; // Adjust time here
+        if (AntiHardScopeEnabled)
+        {
+            self thread monitorAntiHardscope(MaxScopeTime);
+        }
+        // Wait until player dies before restarting the system
+        self waittill("death");
+        
+        // Reset the hardscope thread flag to allow a new thread
+        self.hardscopeThread = undefined;
+        
+        // Wait for respawn
+        self waittill("spawned_player");
+        
+        // Set the flag again for the new life
+        self.hardscopeThread = true;
     }
 }
 
-EnableAntiHardScope(time)
-{
-    self endon( "disconnect" );
-    self endon( "death" );
 
-    if( !isDefined( time ) || time < 0.05 )
-        time = 3;
+monitorAntiHardscope(scopeTime)
+{
+    self endon("disconnect");
+    self endon("death");
+
+    if (!isDefined(scopeTime) || scopeTime < 0.05)
+        scopeTime = 3;
 
     adsTime = 0;
 
-    for( ;; )
-    {
-        if( self playerAds() == 1 )
-            adsTime ++;
-        else
-            adsTime = 0;
+    hudWarning = createFontString("objective", 1.6);
+    hudWarning setPoint("CENTER", "CENTER", 0, -150);
+    hudWarning.alpha = 0;
+    hudWarning.hideWhenInMenu = true;
 
-        if( adsTime >= int( time / 0.05 ) )
+    self thread cleanupAntiHardscopeHUD(hudWarning);
+
+    loopInterval = 0.05;
+    scopeLimit = int(scopeTime / loopInterval);
+
+    for (;;)
+    {
+        if (self playerAds() == 1)
+        {
+            adsTime++;
+        }
+        else
         {
             adsTime = 0;
-            self allowAds( false );
-
-            while( self playerAds() > 0 )
-                wait( 0.05 );
-
-            self allowAds( true );
+            hudWarning.alpha = 0;
         }
 
-        wait( 0.05 );
+        if (adsTime >= scopeLimit)
+        {
+            adsTime = 0;
 
+            hudWarning setText("^1No Hardscoping!");
+            hudWarning.alpha = 1;
+
+            self allowAds(false);
+
+            while (self playerAds() > 0)
+                wait(loopInterval);
+
+            self allowAds(true);
+
+            wait 0.5;
+            hudWarning.alpha = 0;
+        }
+
+        wait(loopInterval);
+    }
 }
+
+cleanupAntiHardscopeHUD(hud)
+{
+    self waittill("death");
+
+    if (isDefined(hud))
+        hud destroy();
 }
