@@ -84,18 +84,18 @@ restrictWeapons()
 		wait(.1);
 		self switchToWeapon("h2_cheytac_mp");
         //should give some sniper perks
-        self maps\mp\_utility::_setperk("specialty_fastreload", 1);
-	self maps\mp\_utility::_setperk("specialty_quickdraw", 1);
-        self maps\mp\_utility::giveperk("specialty_longersprint", 1);
-        self maps\mp\_utility::giveperk("specialty_fastmantle", 1);
-        self maps\mp\_utility::giveperk("specialty_lightweight", 1);
-        self maps\mp\_utility::giveperk("specialty_fastsprintrecovery", 1);
-        self maps\mp\_utility::giveperk("specialty_bulletdamage", 1);
-        self maps\mp\_utility::giveperk("specialty_armorpiercing", 1);
-        self maps\mp\_utility::giveperk("specialty_extendedmelee", 1);
-        self maps\mp\_utility::giveperk("specialty_falldamage", 1);
-        self maps\mp\_utility::giveperk("specialty_bulletaccuracy", 1);
-        self maps\mp\_utility::giveperk("specialty_holdbreath", 1);
+        self maps\mp\_utility::giveperk("specialty_fastreload", 0);
+		self maps\mp\_utility::giveperk("specialty_quickdraw", 0);
+        self maps\mp\_utility::giveperk("specialty_longersprint", 0);
+        self maps\mp\_utility::giveperk("specialty_fastmantle", 0);
+        self maps\mp\_utility::giveperk("specialty_lightweight", 0);
+        self maps\mp\_utility::giveperk("specialty_fastsprintrecovery", 0);
+        self maps\mp\_utility::giveperk("specialty_bulletdamage", 0);
+        self maps\mp\_utility::giveperk("specialty_armorpiercing", 0);
+        self maps\mp\_utility::giveperk("specialty_extendedmelee", 0);
+        self maps\mp\_utility::giveperk("specialty_falldamage", 0);
+        self maps\mp\_utility::giveperk("specialty_bulletaccuracy", 0);
+        self maps\mp\_utility::giveperk("specialty_holdbreath", 0);
 	}
 }
 
