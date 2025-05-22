@@ -98,3 +98,4 @@ Steps are super simple so I will keep it high level.
 * Thanks to DoktorSAS for his repo and scripts
 * Thanks to Craig for his wallbang script
 * Thanks to ripzie for fixing the antihardcope script
+* Thanks to Zynzs for fixing the anticamp script
