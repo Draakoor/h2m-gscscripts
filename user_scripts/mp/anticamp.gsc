@@ -5,169 +5,129 @@
 
 main()
 {
-    if (getDvarInt("anticamp") == 1) {
-        // Set default values for Dvars if they are not defined
-        if (!isDefined(getDvar("campTimeLimit")))
-        {
-            setDvar("campTimeLimit", "45"); // Default to 45 seconds
-        }
-        if (!isDefined(getDvar("campDistance")))
-        {
-            setDvar("campDistance", "64"); // Default to 64 units
-        }
+    if (getDvarInt("anticamp") != 1)
+        return;
 
-        // Load Dvar values into level variables
-        level.campTimeLimit = int(getDvar("campTimeLimit"));
-        level.campDistance = int(getDvar("campDistance"));
+    // Set default Dvars if not defined
+    if (!isDefined(getDvar("campTimeLimit")))
+        setDvar("campTimeLimit", "5");
+    if (!isDefined(getDvar("campDistance")))
+        setDvar("campDistance", "100");
 
-        // Load and parse anticampwhitelist Dvar into an array of GUIDs
-        if (isDefined(getDvar("anticampwhitelist")))
-        {
-            level.exemptedGUIDs = getDvarArray("anticampwhitelist");
-        }
-        else
-        {
-            level.exemptedGUIDs = [];
-        }
+    level.campTimeLimit = int(getDvar("campTimeLimit"));
+    level.campDistance = int(getDvar("campDistance"));
 
-        // Set up player connection handler
-        level thread onPlayerConnect();
-    }
+    // Parse whitelist Dvar
+    level.exemptedGUIDs = [];
+    if (isDefined(getDvar("anticampwhitelist")))
+        level.exemptedGUIDs = getDvarArray("anticampwhitelist");
+
+    level thread anticamp_onPlayerConnect();
 }
 
-onPlayerConnect()
+anticamp_onPlayerConnect()
 {
-    while (true)
+    for (;;)
     {
         level waittill("connected", player);
-        player thread onPlayerSpawned();
+        player thread anticamp_onPlayerSpawned();
     }
 }
 
-onPlayerSpawned()
+anticamp_onPlayerSpawned()
 {
     self endon("disconnect");
 
-    // Load Dvars into player-specific variables
     self.campTimeLimit = level.campTimeLimit;
     self.campDistance = level.campDistance;
+    self.guid = self getGuid();
 
-    // Store the player's GUID
-    self.guid = self getGUID();
+    if (anticamp_isPlayerWhitelisted(self.guid))
+    {
+        self iprintlnbold("^2You are exempt from camping rules.");
+        return;
+    }
 
-    // Start monitoring player movement
-    self thread monitorPlayerMovement();
+    self thread anticamp_monitorCamping();
 }
 
-monitorPlayerMovement()
+anticamp_monitorCamping()
 {
     self endon("disconnect");
 
-    // Check if the player is exempted from camping checks using the guid
-    if (level.exemptedGUIDs.size > 0)
-    {
-        // Check if the player's GUID is in the whitelist array
-        if (isPlayerWhitelisted(self.guid))
-        {
-            return; // Exit the function if the player is exempted
-        }
-    }
-
-    // Initialize player's last position and movement time
     self.lastPosition = self.origin;
     self.lastMoveTime = getTime();
     self.countdownStarted = false;
 
-    while (true)
+    for (;;)
     {
-        wait(1); // Check every second
+        wait(1);
 
-        // Skip checking if player is using a specific Killstreak
-        if (self usingKillstreak())
+        if (anticamp_usingKillstreak())
         {
             self.lastPosition = self.origin;
             self.lastMoveTime = getTime();
-            self.countdownStarted = false; // Reset countdown flag
+            self.countdownStarted = false;
             continue;
         }
 
-        self.distanceMoved = distance(self.lastPosition, self.origin);
-
-        if (self.distanceMoved > self.campDistance)
+        if (distance(self.lastPosition, self.origin) > self.campDistance)
         {
-            // Player has moved, reset position and time
             self.lastPosition = self.origin;
             self.lastMoveTime = getTime();
-            self.countdownStarted = false; // Reset countdown flag
+            self.countdownStarted = false;
+            continue;
         }
 
-        // Calculate time difference since last move
-        self.timeSinceLastMove = (getTime() - self.lastMoveTime) / 1000; // Convert to seconds
-
-        if (self.timeSinceLastMove >= self.campTimeLimit)
+        timeStill = (getTime() - self.lastMoveTime) / 1000;
+        if (timeStill >= self.campTimeLimit)
         {
-            // Start countdown only if it hasn't been started yet
             if (!self.countdownStarted)
             {
                 self.countdownStarted = true;
-                self iprintlnbold("Stop camping or face consequences!");
-
-                for (i = 3; i > 0; i--)
+                self iprintlnbold("Move or Consequences!");
+                wait(3); // Give a short warning period
+                if (distance(self.lastPosition, self.origin) > self.campDistance)
                 {
-                    self iprintlnbold("Suicide in " + i + "...");
-                    wait(1);
-
-                    // Check if the player has moved during the countdown
-                    self.distanceMoved = distance(self.lastPosition, self.origin);
-                    if (self.distanceMoved > self.campDistance)
-                    {
-                        // Player moved during the countdown, reset countdown
-                        self.countdownStarted = false;
-                        self.lastPosition = self.origin;
-                        self.lastMoveTime = getTime();
-                        break;
-                    }
+                    self.lastPosition = self.origin;
+                    self.lastMoveTime = getTime();
+                    self.countdownStarted = false;
+                    continue;
                 }
-
-                // If countdown completed, punish the player
-                if (self.countdownStarted)
-                {
-                    self suicide(); // Punish by killing the player
-                }
+            }
+            // Still camping after warning
+            if (self.countdownStarted)
+            {
+                self suicide();
+                self.countdownStarted = false;
+                self.lastMoveTime = getTime();
+                self.lastPosition = self.origin;
             }
         }
     }
 }
 
-// Function to check if the player is currently using a Killstreak
-usingKillstreak()
+anticamp_usingKillstreak()
 {
-    return (isDefined(self.killstreak) && (self.killstreak == "predator_missile" || self.killstreak == "ac130" || self.killstreak == "chopper_gunner"));
+    return isDefined(self.killstreak) && (self.killstreak == "predator_missile" || self.killstreak == "ac130" || self.killstreak == "chopper_gunner");
 }
 
-
-// Function to check if the player's GUID is in the whitelist
-isPlayerWhitelisted(guid)
+anticamp_isPlayerWhitelisted(guid)
 {
+    if (!isDefined(level.exemptedGUIDs) || !isArray(level.exemptedGUIDs))
+        return false;
     foreach (exemptedGUID in level.exemptedGUIDs)
     {
         if (guid == exemptedGUID)
-        {
             return true;
-        }
     }
     return false;
 }
 
-// Function to convert Dvar to an array
 getDvarArray(dvarName)
 {
     dvarString = getDvar(dvarName);
+    if (!isDefined(dvarString) || dvarString == "")
+        return [];
     return strTok(dvarString, ",");
-}
-
-// Helper function to check specific killstreaks
-isUsingSpecificKillstreak(killstreakName)
-{
-    return isDefined(self.currentKillstreak) && self.currentKillstreak == killstreakName;
 }
