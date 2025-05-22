@@ -10,6 +10,11 @@ Steps are super simple so I will keep it high level.
 * Some scripts require a DVAR to enable / disable, use where required.
 
 # Which scripts are available?
+* Cranked
+  * Adds the gamemode from call of duty ghosts
+  * you get a speedboost and some perks after you killed someone
+  * keep your streak going or you explode
+
 * Sniper Only
   * Only Snipers are allowed, other weapons will be replaced, throwingknife and tactical insertion allowed. Perk replacing is not working at the moment
   * Enable/Disable DVAR `set sniperport "0"` (off) or `set sniperport "1"` (on)
