@@ -10,7 +10,7 @@ main()
 
     // Set default Dvars if not defined
     if (!isDefined(getDvar("campTimeLimit")))
-        setDvar("campTimeLimit", "5");
+        setDvar("campTimeLimit", "20");
     if (!isDefined(getDvar("campDistance")))
         setDvar("campDistance", "100");
 
