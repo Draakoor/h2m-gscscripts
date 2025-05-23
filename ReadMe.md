@@ -85,6 +85,7 @@ Steps are super simple so I will keep it high level.
 * DoktorSAS Mapvote and VanityTS [Trickshot](https://github.com/DoktorSAS/VanityTS) ~~[Mapvote](https://github.com/DoktorSAS/H1Mapvote/tree/main)~~ [General Scripts](https://github.com/DoktorSAS/GSC/tree/main) Nightshade ready: [My Version of DoctorSAS Mapvote](https://github.com/Draakoor/H1Mapvote/tree/main)
 * Justin's Retropack [His Repo](https://github.com/justinabellera/retro-pack)
 * SSH's Adminmenu [Repo](https://github.com/S3RAPH-1M/H2M-Admin-Menu)
+* HyperBeats Scripts [Repo](github.com/HyperBeats/h2m-gscscripts)
 
 # Credits
 * Thanks to Zyrus1337 for his admin commmands script!
@@ -105,3 +106,4 @@ Steps are super simple so I will keep it high level.
 * Thanks to ripzie for fixing the antihardcope script
 * Thanks to Zynzs for fixing the anticamp script
 * Thanks to cat for the cranked gamemode
+* Thanks to HyperBeats for his scripts
