@@ -16,7 +16,7 @@ Steps are super simple so I will keep it high level.
   * keep your streak going or you explode
 
 * Sniper Only
-  * Only Snipers are allowed, other weapons will be replaced, throwingknife and tactical insertion allowed. Perk replacing is not working at the moment
+  * Only Snipers are allowed, other weapons will be replaced, throwingknife and tactical insertion allowed. Perk replacing is working at the moment
   * Enable/Disable DVAR `set sniperport "0"` (off) or `set sniperport "1"` (on)
 
 * Restrict Weapons
