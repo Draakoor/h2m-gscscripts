@@ -3,6 +3,7 @@
 # h2m_gscs
 This is a collection of our GSCs. Credits are included in each script respectively or in the readme.
 
+Buy me a coffe if you want: [click](https://paypal.me/draakoor)
 # Install steps
 Steps are super simple so I will keep it high level.
 
