@@ -22,6 +22,14 @@ Steps are super simple so I will keep it high level.
   * you get a speedboost and some perks after you killed someone
   * keep your streak going or you explode
 
+* TI Speed
+  * Almost instantly deploys tactical insertion
+
+* Sniper selector
+  * Adds chat commands so player can choose sniper
+  * Script will remember your choice for the whole round/map
+  * Commands: !weaponmenu, !intervention, !barrett, !wa2000, !m40, !as50, !msr
+
 * Sniper Only
   * Only Snipers are allowed, other weapons will be replaced, throwingknife and tactical insertion allowed. Perk replacing is working at the moment
   * Enable/Disable DVAR `set sniperport "0"` (off) or `set sniperport "1"` (on)
