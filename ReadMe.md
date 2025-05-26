@@ -50,6 +50,10 @@ Steps are super simple so I will keep it high level.
   * You can set the timer for camptime with `set campTimeLimit "45"`
   * You can set the distance that needs to be traveld with `set campDistance "65"`
   * You can whitelist campers with `set anticampwhitelist "yourguid,yourguid"`
+ 
+ * Antihardscope
+   * Only quickscoping is allowed
+   * customise times in gsc
 
 * Restrict Killstreaks
   * Allows you to restrict killstreaks
