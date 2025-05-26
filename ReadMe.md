@@ -21,6 +21,7 @@ Steps are super simple so I will keep it high level.
   * https://callofduty.fandom.com/wiki/Drop_Zone
   * Make sure you set the gametype to hardpoint
   * Only working on open maps (no maps with building fights like broadcast)
+  * set dropzone 1 to your server.cfg
 
 * Cranked
   * Adds the gamemode from call of duty ghosts
