@@ -14,6 +14,8 @@ Steps are super simple so I will keep it high level.
 
 * Dropzone
   * https://callofduty.fandom.com/wiki/Drop_Zone
+  * Make sure you set the gametype to hardpoint
+  * Only working on open maps (no maps with building fights like broadcast)
 
 * Cranked
   * Adds the gamemode from call of duty ghosts
