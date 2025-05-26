@@ -12,6 +12,11 @@ Steps are super simple so I will keep it high level.
 
 # Which scripts are available?
 
+* Specialist Perks
+  * Adds the specialist killstreak from original mw3 back to the game
+  * Set specialistperks 1 in your server.cfg (is enabled for all)
+  * order can be customized in the gsc
+
 * Dropzone
   * https://callofduty.fandom.com/wiki/Drop_Zone
   * Make sure you set the gametype to hardpoint
