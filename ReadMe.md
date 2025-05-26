@@ -11,6 +11,10 @@ Steps are super simple so I will keep it high level.
 * Some scripts require a DVAR to enable / disable, use where required.
 
 # Which scripts are available?
+
+* Dropzone
+  * https://callofduty.fandom.com/wiki/Drop_Zone
+
 * Cranked
   * Adds the gamemode from call of duty ghosts
   * you get a speedboost and some perks after you killed someone
