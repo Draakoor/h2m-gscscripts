@@ -17,7 +17,7 @@ Steps are super simple so I will keep it high level.
   * set noblock 1 in your server.cfg
 
 * Specialist Perks
-  * Adds the specialist killstreak from original mw3 back to the game
+  * Adds the specialist bonus/killstreak from original mw3 back to the game
   * Set specialistperks 1 in your server.cfg (is enabled for all)
   * order can be customized in the gsc
 
