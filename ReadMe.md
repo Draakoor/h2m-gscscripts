@@ -16,7 +16,7 @@ Steps are super simple so I will keep it high level.
   * Disables player collision
   * set noblock 1 in your server.cfg
 
-* Specialist Perks
+* Specialist Perks (specialist.gsc)
   * Adds the specialist bonus/killstreak from original mw3 back to the game
   * Set specialistperks 1 in your server.cfg (is enabled for all)
   * order can be customized in the gsc
@@ -136,3 +136,4 @@ Steps are super simple so I will keep it high level.
 * Thanks to Zynzs for fixing the anticamp script
 * Thanks to cat for the cranked gamemode
 * Thanks to HyperBeats for his scripts
+* Thanks to J for his specialist bonus script
