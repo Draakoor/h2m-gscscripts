@@ -203,7 +203,7 @@ cranked()
             {
                 if (self.adsSpeedBoostActive)
                 {
-                    self.movement
+                    self.movement;
                     self SetMoveSpeedScale(1.1);
                     self.adsSpeedBoostActive = false;
                 }
