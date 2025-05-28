@@ -1,3 +1,5 @@
+// patch v2
+
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\gametypes\_hud_util;
@@ -5,7 +7,6 @@
 init()
 {
     if (getDvarInt("cranked") == 1){
-        initTimerStrings();
         level.cranked = false;
         level thread on_player_connect();
     }
@@ -35,25 +36,9 @@ on_player_spawn(){
 
 } 
 
-initTimerStrings()
-{
-    // Integer parts from 0 to 25
-    level.timerIntStrings = [];
-    for (i = 0; i <= 25; i++)
-    {
-        level.timerIntStrings[i] = i + ".";
-    }
-
-    // Decimal parts from 0 to 9
-    level.timerDecimalStrings = [];
-    for (d = 0; d <= 9; d++)
-    {
-        level.timerDecimalStrings[d] = d + ""; // Convert int to string
-    }
-}
-
 showCrankedTimer(seconds)
 {
+    level endon("game ended");
     self endon("disconnect");
     self endon("death");
     self endon("stop_cranked_timer");
@@ -71,44 +56,33 @@ showCrankedTimer(seconds)
     self.crankedTimer.horzAlign = "center";
     self.crankedTimer.vertAlign = "middle";
     self.crankedTimer.x = -170;
-    self.crankedTimer.y = 135; // match box y
+    self.crankedTimer.y = 135; // match box y prev = 135
     self.crankedTimer.fontScale = 1.7;
     self.crankedTimer.color = (1, 1, 1); // white
     self.crankedTimer.alpha = 1;
+    self.crankedTimer.sort = 1;
 
     timeRemaining = float(seconds);
-    lastInt = -1;
-    lastDec = -1;
 
     for (;;)
     {
-        intPart = int(timeRemaining);
-        decPart = int((timeRemaining - intPart) * 10);
+        self.crankedTimer setValue(roundToDecimalPlaces(timeRemaining,1));
+        wait(0.1);
+        timeRemaining -= 0.1;
 
-        // messy stuff tried fixing overflow range
-        if (intPart < 0) intPart = 0;
-        if (intPart > 25) intPart = 25;
-        if (decPart < 0) decPart = 0;
-        if (decPart > 9) decPart = 9;
-
-        if (intPart != lastInt || decPart != lastDec)
-        {
-            self.crankedTimer setText(level.timerIntStrings[intPart] + level.timerDecimalStrings[decPart]);
-            lastInt = intPart;
-            lastDec = decPart;
-        }
-
-        wait(0.05);
-        timeRemaining -= 0.05;
-
-        if (timeRemaining <= 0)
+        if (timeRemaining <= 0){
             break;
+        }
+            
     }
 
-    self.crankedTimer setText("0.0");
+    self.crankedTimer setValue("0.0");
     self suicide();
-    self.crankedTimer fadeOverTime(1);
     self.crankedTimer.alpha = 0;
+
+    wait 0.3;
+    self.crankedTimer destroy();
+
 }
 
 
@@ -133,6 +107,7 @@ cranked()
     self.crankedHud.alpha = 0;
     self.crankedHud.color = (0.133, 0.439, 0.415); 
     self.crankedHud setShader("white", 100, 30); 
+    self.crankedHud.sort = 0;
 
     // Cranked text
     self.crankedText = newClientHudElem(self);
@@ -203,7 +178,6 @@ cranked()
             {
                 if (self.adsSpeedBoostActive)
                 {
-                    self.movement;
                     self SetMoveSpeedScale(1.1);
                     self.adsSpeedBoostActive = false;
                 }
@@ -232,5 +206,15 @@ cranked()
 
         wait(0.1); 
     }
+
     
+}
+
+roundToDecimalPlaces(number, places)
+{
+    multiplier = 1;
+    for (i = 0; i < places; i++)
+        multiplier *= 10;
+
+    return int(number * multiplier + 0.5) / multiplier;
 }
