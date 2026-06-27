@@ -63,6 +63,9 @@ restrictWeapons()
 					isSubStr(weapon, "cheytac") ||
 					isSubStr(weapon, "barrett") ||
 					isSubStr(weapon, "wa2000") ||
+					isSubStr(weapon, "usr") ||
+					isSubStr(weapon, "l118a") ||
+					isSubStr(weapon, "d25s") ||
 					isSubStr(weapon, "m21") ||
 					isSubStr(weapon, "as50") ||
 					isSubStr(weapon, "msr") ||
@@ -131,10 +134,13 @@ isSniper( weapon )
         ||  isSubstr( weapon, "h2_wa2000" ) 
         ||  isSubstr( weapon, "h2_m21" ) 
         ||  isSubstr( weapon, "h2_m40a3" ) 
-	||  isSubstr( weapon, "h2_as50" ) 
-	||  isSubstr( weapon, "h2_d25s" ) 
+		||  isSubstr( weapon, "h2_as50" ) 
+		||  isSubstr( weapon, "h2_d25s" ) 
         ||  IsSubStr( weapon, "h2_msr")
-	||  IsSubStr( weapon, "briefcase_bomb")
+		||  IsSubStr( weapon, "h2_usr")
+		||  IsSubStr( weapon, "h2_l118a")
+		||  IsSubStr( weapon, "h2_msr")
+		||  IsSubStr( weapon, "briefcase_bomb")
         //||  isSubstr( weapon, "h1_febsnp" )
         //||  isSubstr( weapon, "h1_junsnp" )
     );
